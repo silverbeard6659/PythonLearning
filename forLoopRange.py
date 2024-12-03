@@ -1,3 +1,4 @@
+from operator import index
 from random import randint
 
 
@@ -16,3 +17,18 @@ for number in random_numbers:
         continue
     print(number)
 print(even_numbers)
+
+for i in range(len(numbers)):
+    numbers[i] += 1
+print(numbers)
+print("_________")
+
+greeting = "hellooooooooooo, world! im just chechking sum of O's"
+indexes = []
+i = 0
+for i in range(len(greeting)):
+    if greeting[i] == 'o' or greeting[i] == 'O':
+        i += 1
+        indexes.append(i)
+print(f"There is this much letters 'o' big or small -> {indexes}")
+
