@@ -22,7 +22,7 @@ if img is not None:
 else:
     print('Failed to load image.')
     
-def locateImage():
+# def locateImage():
     
     
 

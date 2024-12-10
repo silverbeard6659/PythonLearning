@@ -26,8 +26,8 @@ def detect_bar_on_screen(image_path):
 
         # Если находим совпадение, выводим сообщение в консоль
         if len(locations[0]) > 0:
-            print("Изображение найдено!")
-            
+            print("Изображение bar найдено!")
+
         # Для отладки: отображаем текущее изображение
         #cv2.imshow('Screen Capture', frame)
 

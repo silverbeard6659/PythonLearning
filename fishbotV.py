@@ -26,9 +26,10 @@ def detect_init_on_screen(image_path):
 
         # Если находим совпадение, выводим сообщение в консоль
         if len(locations[0]) > 0:
-            print("Изображение найдено!")
+            print("Изображение '!' найдено!")
             pyautogui.press('1')  # Нажимаем кнопку '1'
             break
+
 
 # Запуск функции отслеживания
 detect_init_on_screen('geeks14.png')

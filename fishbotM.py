@@ -3,7 +3,7 @@ import numpy as np
 import pyautogui
 import time
 
-def detect_bar_on_screen(image_path):
+def detect_line_on_screen(image_path):
     # Загружаем целевое изображение для поиска
     target_image = cv2.imread(image_path)
     if target_image is None:
@@ -26,7 +26,7 @@ def detect_bar_on_screen(image_path):
 
         # Если находим совпадение, выводим сообщение в консоль
         if len(locations[0]) > 0:
-            print("Изображение найдено!")
+            print("Изображение line найдено!")
             
         # Для отладки: отображаем текущее изображение
         #cv2.imshow('Screen Capture', frame)
@@ -38,4 +38,4 @@ def detect_bar_on_screen(image_path):
     cv2.destroyAllWindows()
 
 # Запуск функции отслеживания
-detect_bar_on_screen('objB.png')
+detect_line_on_screen('objB.png')
