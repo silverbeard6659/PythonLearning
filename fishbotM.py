@@ -21,7 +21,7 @@ def detect_bar_on_screen(image_path):
 
         # Ищем вхождение целевого изображения в текущем кадре
         result = cv2.matchTemplate(frame, target_image, cv2.TM_CCOEFF_NORMED)
-        threshold = 0.5  # Порог для нахождения совпадения
+        threshold = 0.8  # Порог для нахождения совпадения
         locations = np.where(result >= threshold)
 
         # Если находим совпадение, выводим сообщение в консоль
@@ -38,4 +38,4 @@ def detect_bar_on_screen(image_path):
     cv2.destroyAllWindows()
 
 # Запуск функции отслеживания
-detect_bar_on_screen('objA.png')
+detect_bar_on_screen('objB.png')
