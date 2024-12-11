@@ -15,3 +15,4 @@ for i, c in enumerate(cnts[0]):
     cx = int(M["m10"] / M["m00"])
     cy = int(M["m01"] / M["m00"])
     print(f"Yellow Box {i} : cx={cx}, cx={cy}") 
+    cv2.imshow('screen',image)
