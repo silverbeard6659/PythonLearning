@@ -3,10 +3,9 @@ import pyautogui
 import time
 import numpy as np
 
-def find_object(template_path, screenshot):
+def find_object(template_path, screenshot, threshold):
     template = cv2.imread(template_path, cv2.IMREAD_GRAYSCALE)
     res = cv2.matchTemplate(screenshot, template, cv2.TM_CCOEFF_NORMED)
-    threshold = 0.8
     loc = np.where(res >= threshold)
 
     # Get the center of the detected object
@@ -33,16 +32,16 @@ def main():
         # Step 4: Detect pattern image - object1.png on screen and then press '1'
         screenshot = pyautogui.screenshot()
         screenshot = cv2.cvtColor(np.array(screenshot), cv2.COLOR_RGB2GRAY)
-        object1_location = find_object('object1.png', screenshot)
+        object1_location = find_object('object1.png', screenshot, threshold=0.8)
 
         if object1_location:
             pyautogui.press('1')
         else:
             continue  # If object1 is not found, restart the loop
 
-        # Step 5: Detect two items simultaneously - object2 and object3
-        object2_location = find_object('object2.png', screenshot)
-        object3_location = find_object('object3.png', screenshot)
+        # Step 5: Detect two items simultaneously - object2 and object3 with different thresholds
+        object2_location = find_object('object2.png', screenshot, threshold=0.7)
+        object3_location = find_object('object3.png', screenshot, threshold=0.6)
 
         start_time = time.time()
 
@@ -52,8 +51,8 @@ def main():
 
             screenshot = pyautogui.screenshot()
             screenshot = cv2.cvtColor(np.array(screenshot), cv2.COLOR_RGB2GRAY)
-            object2_location = find_object('object2.png', screenshot)
-            object3_location = find_object('object3.png', screenshot)
+            object2_location = find_object('object2.png', screenshot, threshold=0.7)
+            object3_location = find_object('object3.png', screenshot, threshold=0.6)
 
             time.sleep(1)  # Check every second
 
