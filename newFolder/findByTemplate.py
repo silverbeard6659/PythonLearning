@@ -9,16 +9,10 @@ monitor = {"top": 300, "left": 450, "width": 1000, "height": 700}
 # Initialize the screen capture
 sct = mss()
 
-# Define the lower and upper bounds of the RGB color range
-lower_rgb = np.array([100, 150, 200])  # Lower bound of the RGB color range
-upper_rgb = np.array([120, 170, 220])  # Upper bound of the RGB color range
-
-# lower_rgb = np.array([173,255,104])  # Lower bound of the RGB color range
-# upper_rgb = np.array([189,255,138])  # Upper bound of the RGB color range
-
 # Load the template image
 try:
-    template = cv2.imread('objectB.png', cv2.IMREAD_UNCHANGED)
+    # Specify the full path to the template image if it's not in the same directory
+    template = cv2.imread('objectC.png', cv2.IMREAD_UNCHANGED)  # Change to '/path/to/your/objectB.png' if needed
     if template is None:
         raise ValueError("Template image not found or unable to load.")
     template_height, template_width = template.shape[:2]
@@ -26,24 +20,7 @@ except Exception as e:
     print(f"Error loading template image: {e}")
     exit()
 
-def detect_color(frame, lower_rgb, upper_rgb):
-    # Convert the frame from BGR to RGB
-    frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    
-    # Create a mask for the color range
-    mask = cv2.inRange(frame_rgb, lower_rgb, upper_rgb)
-    
-    # Find contours in the mask
-    contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    
-    # Draw rectangles around detected objects
-    for contour in contours:
-        x, y, w, h = cv2.boundingRect(contour)
-        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-    
-    return frame
-
-def detect_template(frame, template, threshold=0.8):
+def detect_template(frame, template, threshold=0.5):
     # Convert the frame to grayscale
     gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     
@@ -83,11 +60,8 @@ def main():
             print(f"Error capturing screen: {e}")
             break
 
-        # Detect the color in the frame
-        result_frame = detect_color(frame, lower_rgb, upper_rgb)
-
         # Detect the template in the frame
-        result_frame = detect_template(result_frame, template)
+        result_frame = detect_template(frame, template)
 
         # Display the result
         cv2.imshow('Screen', result_frame)
