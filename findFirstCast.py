@@ -4,7 +4,7 @@ import time
 from mss import mss
 
 # Define the region of interest (ROI) on the screen
-monitor = {"top": 790, "left": 833, "width": 250, "height": 25}
+monitor = {"top": 55, "left":910, "width": 90, "height": 135}
 
 # Initialize the screen capture
 sct = mss()
@@ -12,7 +12,7 @@ sct = mss()
 # Load the template image
 try:
     # Specify the full path to the template image if it's not in the same directory
-    template = cv2.imread('objectC.png', cv2.IMREAD_UNCHANGED)  # Change to '/path/to/your/objectB.png' if needed
+    template = cv2.imread('object1.png', cv2.IMREAD_UNCHANGED)  # Change to '/path/to/your/objectB.png' if needed
     if template is None:
         raise ValueError("Template image not found or unable to load.")
     template_height, template_width = template.shape[:2]
@@ -20,7 +20,7 @@ except Exception as e:
     print(f"Error loading template image: {e}")
     exit()
 
-def detect_template(frame, template, threshold=0.5):
+def detect_template(frame, template, threshold=0.8):
     # Convert the frame to grayscale
     gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     

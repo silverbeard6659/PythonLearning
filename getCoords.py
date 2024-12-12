@@ -6,7 +6,7 @@ def print_cursor_coordinates():
         if keyboard.is_pressed('v'):
             # Get the current mouse position
             x, y = pyautogui.position()
-            print(f"Cursor Coordinates: ({x}, {y})")
+            print(f"Cursor Coordinates (Top-Left): ({x}, {y})")
             # Wait for the key to be released to avoid multiple prints
             while keyboard.is_pressed('v'):
                 pass

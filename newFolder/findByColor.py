@@ -4,8 +4,7 @@ import time
 from mss import mss
 
 # Define the region of interest (ROI) on the screen
-monitor = {"top": 300, "left": 450, "width": 1000, "height": 700}
-
+monitor = {"top": 790, "left": 833, "width": 250, "height": 25}
 # Initialize the screen capture
 sct = mss()
 
