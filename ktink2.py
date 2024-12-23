@@ -4,8 +4,6 @@ import time
 from mss import mss
 import tkinter as tk
 from PIL import Image, ImageTk
-import keyboard
-import threading
 import pyautogui
 
 # Define the regions of interest (ROIs) on the screen
@@ -78,7 +76,7 @@ def detect_by_color_range(frame, lower_color, upper_color):
         center_coordinates.append((center_x, center_y))
     return frame, center_coordinates
 
-def wait_for_objectA(label, status_label):
+def wait_for_objectA(label):
     print("Waiting for objectA.png to appear...")
     while True:
         screenshot = np.array(sct.grab(monitor_objectA))
@@ -92,8 +90,8 @@ def wait_for_objectA(label, status_label):
         _, max_val, _, _ = cv2.minMaxLoc(result)
         if max_val >= 0.6:  # Adjust threshold as needed
             print("objectA.png detected!")
-            keyboard.press_and_release('1')
-            status_label.config(text="objectA.png detected!")
+            pyautogui.press('1')
+            label.config(text="objectA.png detected!")
             return
         
         # Display the current frame in the label
@@ -102,10 +100,6 @@ def wait_for_objectA(label, status_label):
         imgtk = ImageTk.PhotoImage(image=img)
         label.imgtk = imgtk
         label.config(image=imgtk)
-        
-        # Update the Tkinter event loop
-        label.update_idletasks()
-        status_label.update_idletasks()
         
         time.sleep(0.1)  # Check every 100ms
 
@@ -139,14 +133,13 @@ class FishingBotApp:
         # Move mouse to center of screen
         screen_width, screen_height = pyautogui.size()
         pyautogui.moveTo(screen_width // 2, screen_height // 2)
-        print(f"Mouse moved to ({screen_width // 2}, {screen_height // 2})")
         
         # Press key '1'
-        keyboard.press_and_release('1')
-        print("Key '1' pressed")
+        pyautogui.press('1')
         
         # Wait for objectA.png to appear in a separate thread
-        thread = threading.Thread(target=wait_for_objectA, args=(self.objectA_label, self.objectA_status_label))
+        import threading
+        thread = threading.Thread(target=wait_for_objectA, args=(self.objectA_label,))
         thread.daemon = True
         thread.start()
         
