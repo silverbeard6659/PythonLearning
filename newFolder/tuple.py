@@ -11,3 +11,9 @@ print(type(not_tuple))
 
 definetely_tuple = ("admin",)
 print(type(definetely_tuple))
+
+role_1, role_2, role_3 = user_roles
+
+print(role_1)
+print(role_2)
+print(role_3)
